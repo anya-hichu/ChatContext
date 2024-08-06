@@ -16,7 +16,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IObjectTable ObjectTable { get; set; } = null!;
     [PluginService] internal static IClientState ClientState { get; set; } = null!;
 
-    private const string CommandName = "/chatctx";
+    private const string CommandName = "/chatcontext";
 
     public Configuration Configuration { get; init; }
 
@@ -44,7 +44,7 @@ public sealed class Plugin : IDalamudPlugin
 
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
-            HelpMessage = "Open chat context window (help, config, main subcommands available)"
+            HelpMessage = "Open chat context window (help, config and main subcommands are available)"
         });
 
         PluginInterface.UiBuilder.Draw += DrawUI;
