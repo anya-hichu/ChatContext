@@ -11,9 +11,16 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    name: Build on Windows
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.100'
       - name: Build
         run: dotnet build
