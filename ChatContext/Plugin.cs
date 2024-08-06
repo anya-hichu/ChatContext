@@ -17,6 +17,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IClientState ClientState { get; set; } = null!;
 
     private const string CommandName = "/chatcontext";
+    private const string CommandHelpMessage = $"Available subcommands for {CommandName} are main, config, disable and enable";
 
     public Configuration Configuration { get; init; }
 
@@ -44,7 +45,7 @@ public sealed class Plugin : IDalamudPlugin
 
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
-            HelpMessage = "Open chat context window (help, config and main subcommands are available)"
+            HelpMessage = CommandHelpMessage
         });
 
         PluginInterface.UiBuilder.Draw += DrawUI;
@@ -75,9 +76,19 @@ public sealed class Plugin : IDalamudPlugin
         {
             ToggleConfigUI();
         }
-        else
+        else if (subcommand == "enable")
         {
-            ChatGui.Print($"Available subcommands for {CommandName} are help, config and main");
+            Configuration.Enabled = true;
+            Configuration.Save();
+        }
+        else if (subcommand == "disable")
+        {
+            Configuration.Enabled = false;
+            Configuration.Save();
+        }
+        else // help
+        {
+            ChatGui.Print(CommandHelpMessage);
         }
     }
 

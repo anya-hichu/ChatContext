@@ -31,7 +31,7 @@ public class ConfigWindow : Window, IDisposable
     public override void Draw()
     {
         var enabled = Configuration.Enabled;
-        if (ImGui.Checkbox("Enable", ref enabled))
+        if (ImGui.Checkbox("Enabled", ref enabled))
         {
             Configuration.Enabled = enabled;
             Configuration.Save();
