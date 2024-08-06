@@ -46,7 +46,6 @@ public class ChatEnricher : IDisposable
             var targetName = NearbyPlayers.GetTargetName(name);
             if (targetName != null)
             {
-                // Todo make the format and color configurable
                 // https://imgur.com/cZceCI3
                 var suffix = new SeStringBuilder()
                     .AddUiForeground((ushort)Configuration.Color)

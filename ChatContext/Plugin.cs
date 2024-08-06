@@ -44,7 +44,7 @@ public sealed class Plugin : IDalamudPlugin
 
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
-            HelpMessage = "Open chat context window."
+            HelpMessage = "Open chat context window (help, config, main subcommands available)"
         });
 
         PluginInterface.UiBuilder.Draw += DrawUI;
@@ -67,9 +67,9 @@ public sealed class Plugin : IDalamudPlugin
     {
         var subcommand = args.Split(" ", 2)[0];
 
-        if (subcommand == "help")
+        if (subcommand == "main")
         {
-            ChatGui.Print($"Available subcommands for {CommandName} are help, config and main");
+            ToggleMainUI();
         } 
         else if (subcommand == "config")
         {
@@ -77,7 +77,7 @@ public sealed class Plugin : IDalamudPlugin
         }
         else
         {
-            ToggleMainUI();
+            ChatGui.Print($"Available subcommands for {CommandName} are help, config and main");
         }
     }
 

@@ -1,6 +1,7 @@
 namespace ChatContext;
 
-// https://imgur.com/cZceCI3
+// Reference: https://imgur.com/cZceCI3
+
 public enum UIColor : ushort
 {
     WhiteNormal = 0,
