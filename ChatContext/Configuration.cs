@@ -12,7 +12,13 @@ public class Configuration : IPluginConfiguration
 
     public bool Enabled { get; set; } = true;
 
-    public HashSet<XivChatType> Types { get; set; } = new() {XivChatType.Alliance, XivChatType.Yell, XivChatType.Party, XivChatType.Say, XivChatType.Shout };
+    public HashSet<XivChatType> Types { get; set; } = new() {
+        XivChatType.Alliance, 
+        XivChatType.Yell, 
+        XivChatType.Party, 
+        XivChatType.Say, 
+        XivChatType.Shout 
+    };
 
     public string Format { get; set; } = " [ {0}]";
 

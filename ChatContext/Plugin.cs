@@ -34,7 +34,7 @@ public sealed class Plugin : IDalamudPlugin
     {
         Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
-        NearbyPlayers = new NearbyPlayers(ClientState, ObjectTable, Framework);
+        NearbyPlayers = new NearbyPlayers(ClientState, ObjectTable, Framework, Configuration);
         ChatEnricher = new ChatEnricher(ChatGui, NearbyPlayers, Configuration);
 
         MainWindow = new MainWindow(this, NearbyPlayers);
@@ -86,7 +86,7 @@ public sealed class Plugin : IDalamudPlugin
             Configuration.Enabled = false;
             Configuration.Save();
         }
-        else // help
+        else
         {
             ChatGui.Print(CommandHelpMessage);
         }
