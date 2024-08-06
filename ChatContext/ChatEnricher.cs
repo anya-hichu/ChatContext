@@ -31,12 +31,13 @@ public class ChatEnricher : IDisposable
     void OnChatMessage(XivChatType type, int a2, ref SeString sender, ref SeString message, ref bool isHandled)
     {
         
-        if (Configuration.Types.ToHashSet().Contains(type))
+        if (Configuration.Types.Contains(type))
         {
             string name;
-            // cross world player
+            
             if (sender.Payloads.Count > 0 && sender.Payloads[0] is PlayerPayload) 
             {
+                // cross world player format
                 name = ((PlayerPayload)sender.Payloads[0]).PlayerName;
             } else
             {
@@ -46,7 +47,6 @@ public class ChatEnricher : IDisposable
             var targetName = NearbyPlayers.GetTargetName(name);
             if (targetName != null)
             {
-                // https://imgur.com/cZceCI3
                 var suffix = new SeStringBuilder()
                     .AddUiForeground((ushort)Configuration.Color)
                     .Append(string.Format(Configuration.Format, targetName))

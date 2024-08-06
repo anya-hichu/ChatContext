@@ -17,4 +17,5 @@ Dalamud plugin to add sender target to chat messages (more features later maybe?
 
 - `/chatcontext main`
 - `/chatcontext config`
-- `/chatcontext help`
+- `/chatcontext enable`
+- `/chatcontext disable`
