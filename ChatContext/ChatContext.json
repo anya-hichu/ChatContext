@@ -1,0 +1,12 @@
+{
+  "Author": "Anya Hichu",
+  "Name": "ChatContext",
+  "Punchline": "Add sender target info in chat messages.",
+  "Description": "Add sender target info in chat messages.",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "chat",
+    "context",
+    "target"
+  ]
+}
