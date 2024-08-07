@@ -19,7 +19,7 @@ public class ConfigWindow : Window, IDisposable
     {
         SizeConstraints = new WindowSizeConstraints
         {
-            MinimumSize = new Vector2(300, 38),
+            MinimumSize = new Vector2(300, 380),
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
         };
 
