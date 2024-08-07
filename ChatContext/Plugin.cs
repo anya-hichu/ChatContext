@@ -12,21 +12,18 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
     [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
     [PluginService] internal static IChatGui ChatGui { get; private set; } = null!;
-    [PluginService] internal static IFramework Framework { get; set; } = null!;
-    [PluginService] internal static IObjectTable ObjectTable { get; set; } = null!;
-    [PluginService] internal static IClientState ClientState { get; set; } = null!;
+    [PluginService] internal static IFramework Framework { get; private set; } = null!;
+    [PluginService] internal static IObjectTable ObjectTable { get; private set; } = null!;
+    [PluginService] internal static IClientState ClientState { get; private set; } = null!;
 
     private const string CommandName = "/chatcontext";
     private const string CommandHelpMessage = $"Available subcommands for {CommandName} are main, config, disable and enable";
 
-    public Configuration Configuration { get; init; }
-
     public readonly WindowSystem WindowSystem = new("ChatContext");
 
-    private NearbyPlayers NearbyPlayers;
-    private ChatEnricher ChatEnricher;
-    
-
+    public Configuration Configuration { get; init; }
+    private NearbyPlayers NearbyPlayers { get; init; }
+    private ChatEnricher ChatEnricher { get; init; }
     private MainWindow MainWindow { get; init; }
     private ConfigWindow ConfigWindow { get; init; }
 

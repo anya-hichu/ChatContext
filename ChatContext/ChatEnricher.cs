@@ -7,9 +7,9 @@ using System;
 namespace ChatContext;
 public class ChatEnricher : IDisposable
 {
-    private IChatGui ChatGui;
-    private NearbyPlayers NearbyPlayers;
-    private Configuration Configuration;
+    private IChatGui ChatGui { get; init; }
+    private NearbyPlayers NearbyPlayers { get; init; }
+    private Configuration Configuration { get; init; }
 
     public ChatEnricher(IChatGui chatGui, NearbyPlayers nearbyPlayers, Configuration configuration)
     {

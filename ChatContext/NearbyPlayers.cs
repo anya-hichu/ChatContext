@@ -1,7 +1,6 @@
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Plugin.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
@@ -9,12 +8,11 @@ namespace ChatContext;
 
 public class NearbyPlayers : IDisposable
 {
-    private IClientState ClientState;
-    private IObjectTable ObjectTable;
-    private IFramework Framework;
-    private Configuration Configuration;
-
-    private Dictionary<string, string> TargetNameByName = [];
+    private IClientState ClientState { get; init; }
+    private IObjectTable ObjectTable { get; init; }
+    private IFramework Framework { get; init; }
+    private Configuration Configuration { get; init; }
+    public ImmutableDictionary<string, string> TargetNameByName { get; private set; } = ImmutableDictionary.Create<string, string>();
 
 
     public NearbyPlayers(IClientState clientState, IObjectTable objectTable, IFramework framework, Configuration configuration)
@@ -39,7 +37,7 @@ public class NearbyPlayers : IDisposable
                 .Where(x => x is IPlayerCharacter)
                 .Cast<IPlayerCharacter>()
                 .Where(c => c.TargetObject is IPlayerCharacter)
-                .ToDictionary(c => c.Name.TextValue, c => c.TargetObject!.Name.TextValue);
+                .ToImmutableDictionary(c => c.Name.TextValue, c => c.TargetObject!.Name.TextValue);
         }
     }
 
@@ -53,10 +51,5 @@ public class NearbyPlayers : IDisposable
         {
             return null;
         }
-    }
-
-    public ImmutableDictionary<string, string> GetTargetNameByName()
-    {
-        return TargetNameByName.ToImmutableDictionary();
     }
 }

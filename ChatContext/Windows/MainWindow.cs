@@ -56,7 +56,7 @@ public class MainWindow : Window, IDisposable
                 ImGui.TableHeadersRow();
 
                 var specs = ImGui.TableGetSortSpecs().Specs;
-                foreach (var entry in NearbyPlayers.GetTargetNameByName().ToList().Order(new TableComparer(specs))) {
+                foreach (var entry in NearbyPlayers.TargetNameByName.ToList().Order(new TableComparer(specs))) {
                     if (ImGui.TableNextColumn())
                     {
                         ImGui.Text(entry.Key);
