@@ -3,7 +3,6 @@ using System.Linq;
 using System.Numerics;
 using Dalamud.Game.Text;
 using Dalamud.Interface.Windowing;
-using Dalamud.Utility;
 using ImGuiNET;
 
 namespace ChatContext.Windows;
