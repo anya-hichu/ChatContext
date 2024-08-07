@@ -33,23 +33,23 @@ jobs:
       - name: Build Project
         run: dotnet build --configuration Release ChatContext/ChatContext.csproj -p:AssemblyVersion=${{ env.tag }}
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        uses: actions/create-release@v1
+        id: create_release
         with:
-          name: ChatContext
-          path: |
-             ChatContext/bin/Release/*
-             !ChatContext/bin/Release/ChatContext/*
+          draft: false
+          prerelease: false
+          release_name: ${{ env.tag }}
+          tag_name: ${{ env.tag }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
-      #- name: Publish Version
-      #  uses: PunishXIV/dynamis-action@v1
-      #  id: dynamis
-      #  with:
-      #    plugin_id: x
-      #    internal_name: "ChatContext"
-      #    version_number: ${{ env.tag }}
-      #    path: "ChatContext/bin/Release/ChatContext/latest.zip"
-      #    type: "latest"
-      #    dalamud_version: "10"
-      #  env:
-      #    PUBLISHER_KEY: ${{ secrets.PUBLISHER_KEY }}
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ChatContext/bin/Release/ChatContext/latest.zip
+          asset_name: ChatContext.zip
+          asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
