@@ -7,13 +7,9 @@ using ImGuiNET;
 
 namespace ChatContext.Windows;
 
-public class TableComparer : IComparer<KeyValuePair<string, string>>
+public class TableComparer(ImGuiTableColumnSortSpecsPtr specs) : IComparer<KeyValuePair<string, string>>
 {
-    private ImGuiTableColumnSortSpecsPtr Specs;
-    public TableComparer(ImGuiTableColumnSortSpecsPtr specs)
-    {
-        Specs = specs;
-    }
+    private ImGuiTableColumnSortSpecsPtr Specs { get; init; } = specs;
 
     public int Compare(KeyValuePair<string, string> lhs, KeyValuePair<string, string> rhs)
     {
@@ -26,8 +22,8 @@ public class TableComparer : IComparer<KeyValuePair<string, string>>
 
 public class MainWindow : Window, IDisposable
 {
-    private Plugin Plugin;
-    private NearbyPlayers NearbyPlayers;
+    private Plugin Plugin { get; init; }
+    private NearbyPlayers NearbyPlayers { get; init; }
 
     public MainWindow(Plugin plugin, NearbyPlayers nearbyPlayers) : base("Chat Context##mainWindow")
     {

@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     tags:
-      - "v*.*.*.*"
+      - "*.*.*.*"
 
 jobs:
   Build:
@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Get Tag Name
-        run: echo "tag=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')" >> $GITHUB_ENV
 
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
@@ -31,7 +28,7 @@ jobs:
         run: dotnet restore
 
       - name: Build Project
-        run: dotnet build --configuration Release ChatContext/ChatContext.csproj -p:AssemblyVersion=${{ env.tag }}
+        run: dotnet build --configuration Release ChatContext/ChatContext.csproj -p:AssemblyVersion=${{ github.ref_name }}
 
       - name: Create Release
         uses: actions/create-release@v1
@@ -39,8 +36,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: v${{ env.tag }}
-          tag_name: v${{ env.tag }}
+          release_name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
 

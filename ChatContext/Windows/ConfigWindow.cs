@@ -9,7 +9,7 @@ namespace ChatContext.Windows;
 
 public class ConfigWindow : Window, IDisposable
 {
-    private Configuration Configuration;
+    private Configuration Configuration { get; init; }
 
     // We give this window a constant ID using ###
     // This allows for labels being dynamic, like "{FPS Counter}fps###XYZ counter window",
