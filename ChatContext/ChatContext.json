@@ -10,5 +10,10 @@
         "target"
     ],
     "RepoUrl": "https://github.com/anya-hichu/ChatContext",
-    "IconUrl": "https://raw.githubusercontent.com/anya-hichu/ChatContext/master/Data/icon.png"
+    "IconUrl": "https://raw.githubusercontent.com/anya-hichu/ChatContext/master/images/icon.png",
+    "ImageUrls": [
+        "https://raw.githubusercontent.com/anya-hichu/ChatContext/master/images/image1.png",
+        "https://raw.githubusercontent.com/anya-hichu/ChatContext/master/images/image2.png",
+        "https://raw.githubusercontent.com/anya-hichu/ChatContext/master/images/image3.png"
+    ]
 }

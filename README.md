@@ -5,13 +5,13 @@ Dalamud plugin to add sender target to chat messages (more features later maybe?
 ## Screenshots
 
 ### Chat
-![chat](Readme/chat.jpg)
+![chat](images/image1.jpg)
 
 ### Config
-![config](Readme/config.jpg)
+![config](images/image2.jpg)
 
 ### Nearby (main)
-![main](Readme/nearby.jpg)
+![main](images/image3.jpg)
 
 ## Commands
 
