@@ -7,21 +7,21 @@ using ImGuiNET;
 
 namespace ChatContext.Windows;
 
-public class TableComparer(ImGuiTableColumnSortSpecsPtr specs) : IComparer<KeyValuePair<string, string>>
-{
-    private ImGuiTableColumnSortSpecsPtr Specs { get; init; } = specs;
-
-    public int Compare(KeyValuePair<string, string> lhs, KeyValuePair<string, string> rhs)
-    {
-        var left = Specs.ColumnIndex == 0 ? lhs.Key : lhs.Value;
-        var right = Specs.ColumnIndex == 0 ? rhs.Key : rhs.Value;
-
-        return Specs.SortDirection == ImGuiSortDirection.Ascending ? left.CompareTo(right) : right.CompareTo(left);
-    }
-}
-
 public class MainWindow : Window, IDisposable
 {
+    public class TableComparer(ImGuiTableColumnSortSpecsPtr specs) : IComparer<KeyValuePair<string, string>>
+    {
+        private ImGuiTableColumnSortSpecsPtr Specs { get; init; } = specs;
+
+        public int Compare(KeyValuePair<string, string> lhs, KeyValuePair<string, string> rhs)
+        {
+            var left = Specs.ColumnIndex == 0 ? lhs.Key : lhs.Value;
+            var right = Specs.ColumnIndex == 0 ? rhs.Key : rhs.Value;
+
+            return Specs.SortDirection == ImGuiSortDirection.Ascending ? left.CompareTo(right) : right.CompareTo(left);
+        }
+    }
+
     private Plugin Plugin { get; init; }
     private NearbyPlayers NearbyPlayers { get; init; }
 
@@ -29,7 +29,7 @@ public class MainWindow : Window, IDisposable
     {
         SizeConstraints = new WindowSizeConstraints
         {
-            MinimumSize = new Vector2(300, 375),
+            MinimumSize = new Vector2(300, 380),
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
         };
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Numerics;
 using Dalamud.Game.Text;
 using Dalamud.Interface.Windowing;
+using Dalamud.Utility;
 using ImGuiNET;
 
 namespace ChatContext.Windows;
@@ -18,7 +19,7 @@ public class ConfigWindow : Window, IDisposable
     {
         SizeConstraints = new WindowSizeConstraints
         {
-            MinimumSize = new Vector2(300, 375),
+            MinimumSize = new Vector2(300, 38),
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
         };
 
@@ -26,7 +27,6 @@ public class ConfigWindow : Window, IDisposable
     }
 
     public void Dispose() { }
-
 
     public override void Draw()
     {
@@ -41,7 +41,7 @@ public class ConfigWindow : Window, IDisposable
         {
             // Types
             var types = Configuration.Types.ToHashSet();
-            if (ImGui.BeginChild("channel", new Vector2(ImGui.GetWindowWidth(), 200)))
+            if (ImGui.BeginChild("channel", new Vector2(ImGui.GetWindowWidth(), 180)))
             {
                 foreach (var enumName in Enum.GetNames(typeof(XivChatType)))
                 {
@@ -77,6 +77,10 @@ public class ConfigWindow : Window, IDisposable
                 Configuration.Format = format;
                 Configuration.Save();
             }
+
+            ImGui.Text("Preview: ");
+            ImGui.SameLine();
+            ImGui.Text(Configuration.FormatValid()? string.Format(format, "Random Name") : "Invalid format");
 
             // Colors
             var colorName = Enum.GetName(typeof(UIColor), Configuration.Color)!;

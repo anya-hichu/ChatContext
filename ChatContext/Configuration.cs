@@ -20,9 +20,24 @@ public class Configuration : IPluginConfiguration
         XivChatType.Shout 
     };
 
-    public string Format { get; set; } = " [ {0}]";
+    public string Format { get; set; } = "[ {0}]";
 
     public UIColor Color { get; set; } = UIColor.Grey4;
+
+
+    public bool FormatValid()
+    {
+        try 
+        { 
+            var _ = string.Format(Format, string.Empty);
+            return true; 
+        } 
+        catch (FormatException)
+        {
+            return false;
+        }
+    }
+
 
     public void Save()
     {
