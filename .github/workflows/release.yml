@@ -39,8 +39,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: ${{ env.tag }}
-          tag_name: ${{ env.tag }}
+          release_name: v${{ env.tag }}
+          tag_name: v${{ env.tag }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
