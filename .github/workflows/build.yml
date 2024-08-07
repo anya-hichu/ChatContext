@@ -35,5 +35,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ChatContext
-          path: ChatContext/bin/Release/*
-
+          path: |
+	     ChatContext/bin/Release
+             !ChatContext/bin/Release/ChatContext
