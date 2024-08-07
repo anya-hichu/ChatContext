@@ -1,4 +1,4 @@
-![config](images/logo.png)
+![config](images/icon.png)
 # ChatContext
 
 Dalamud plugin to add sender target to chat messages (more features later maybe?).
