@@ -8,5 +8,7 @@
         "chat",
         "context",
         "target"
-    ]
+    ],
+    "RepoUrl": "https://github.com/anya-hichu/ChatContext",
+    "IconUrl": "https://raw.githubusercontent.com/anya-hichu/ChatContext/master/Data/icon.png"
 }
