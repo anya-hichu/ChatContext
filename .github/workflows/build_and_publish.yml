@@ -33,7 +33,7 @@ jobs:
       - name: Build Project
         run: dotnet build --configuration Release ChatContext/ChatContext.csproj -p:AssemblyVersion=${{ env.tag }}
 
-      - name: Archive Artifacts
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ChatContext
