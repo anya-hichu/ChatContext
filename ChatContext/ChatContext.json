@@ -1,13 +1,12 @@
 {
     "Author": "Anya Hichu",
     "Name": "ChatContext",
-    "Punchline": "Add sender target info in chat messages.",
-    "Description": "Add sender target info in chat messages.",
+    "Punchline": "Add sender target name in chat messages.",
+    "Description": "Add sender target name in chat messages and displays nearly player targets",
     "ApplicableVersion": "any",
     "Tags": [
         "chat",
         "context",
         "target"
-    ],
-    "IconUrl": "https://raw.githubusercontent.com/anya-hichu/ChatContext/master/Data/icon.png"
+    ]
 }
