@@ -36,5 +36,5 @@ jobs:
         with:
           name: ChatContext
           path: |
-	     ChatContext/bin/Release
-             !ChatContext/bin/Release/ChatContext
+             ChatContext/bin/Release/*
+             !ChatContext/bin/Release/ChatContext/*
