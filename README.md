@@ -1,5 +1,6 @@
-![config](images/icon.png)
-# ChatContext
+
+# <img src="https://github.com/anya-hichu/ChatContext/raw/master/images/icon.png" height="30"/> ChatContext
+
 
 Dalamud plugin to add sender target to chat messages (more features later maybe?).
 
