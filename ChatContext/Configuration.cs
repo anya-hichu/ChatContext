@@ -6,19 +6,20 @@ using System.Collections.Generic;
 namespace ChatContext;
 
 [Serializable]
+
 public class Configuration : IPluginConfiguration
 {
     public int Version { get; set; } = 0;
 
     public bool Enabled { get; set; } = true;
 
-    public HashSet<XivChatType> Types { get; set; } = new() {
+    public HashSet<XivChatType> Types { get; set; } = [
         XivChatType.Alliance, 
         XivChatType.Yell, 
         XivChatType.Party, 
         XivChatType.Say, 
-        XivChatType.Shout 
-    };
+        XivChatType.Shout
+    ];
 
     public string Format { get; set; } = "[ {0}]";
 

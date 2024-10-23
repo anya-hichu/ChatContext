@@ -14,7 +14,6 @@ public class NearbyPlayers : IDisposable
     private Configuration Configuration { get; init; }
     public ImmutableDictionary<string, string> TargetNameByName { get; private set; } = ImmutableDictionary.Create<string, string>();
 
-
     public NearbyPlayers(IClientState clientState, IObjectTable objectTable, IFramework framework, Configuration configuration)
     {
         ClientState = clientState;

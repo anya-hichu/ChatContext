@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -7,9 +6,9 @@ using ImGuiNET;
 
 namespace ChatContext.Windows;
 
-public class MainWindow : Window, IDisposable
+public class MainWindow : Window
 {
-    public class TableComparer(ImGuiTableColumnSortSpecsPtr specs) : IComparer<KeyValuePair<string, string>>
+    private class TableComparer(ImGuiTableColumnSortSpecsPtr specs) : IComparer<KeyValuePair<string, string>>
     {
         private ImGuiTableColumnSortSpecsPtr Specs { get; init; } = specs;
 
@@ -25,11 +24,11 @@ public class MainWindow : Window, IDisposable
     private Plugin Plugin { get; init; }
     private NearbyPlayers NearbyPlayers { get; init; }
 
-    public MainWindow(Plugin plugin, NearbyPlayers nearbyPlayers) : base("Chat Context##mainWindow")
+    public MainWindow(Plugin plugin, NearbyPlayers nearbyPlayers) : base("Chat Context Nearby Players##mainWindow")
     {
         SizeConstraints = new WindowSizeConstraints
         {
-            MinimumSize = new Vector2(300, 380),
+            MinimumSize = new Vector2(300, 180),
             MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
         };
 
@@ -37,15 +36,11 @@ public class MainWindow : Window, IDisposable
         NearbyPlayers = nearbyPlayers;
     }
 
-    public void Dispose() { }
-
-
     public override void Draw()
     {
         if (Plugin.Configuration.Enabled)
         {
-            ImGui.Text("Nearby player targets:");
-            if (ImGui.BeginTable("nearbyPlayersTable", 2, ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Sortable, new Vector2(ImGui.GetWindowWidth(), ImGui.GetWindowHeight() - ImGui.GetTextLineHeight() * 4)))
+            if (ImGui.BeginTable("nearbyPlayersTable", 2, ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Sortable, new Vector2(ImGui.GetWindowWidth(), ImGui.GetWindowHeight() - ImGui.GetTextLineHeight() * 3)))
             {
                 ImGui.TableSetupColumn("Name", ImGuiTableColumnFlags.DefaultSort | ImGuiTableColumnFlags.PreferSortAscending);
                 ImGui.TableSetupColumn("Target name");

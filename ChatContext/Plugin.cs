@@ -4,6 +4,7 @@ using Dalamud.Plugin;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
 using ChatContext.Windows;
+using Dalamud.Interface;
 
 namespace ChatContext;
 
@@ -15,6 +16,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IFramework Framework { get; private set; } = null!;
     [PluginService] internal static IObjectTable ObjectTable { get; private set; } = null!;
     [PluginService] internal static IClientState ClientState { get; private set; } = null!;
+    [PluginService] internal static IPluginLog PluginLog { get; private set; } = null!;
 
     private const string CommandName = "/chatcontext";
     private const string CommandHelpMessage = $"Available subcommands for {CommandName} are main, config, disable and enable";
@@ -32,10 +34,24 @@ public sealed class Plugin : IDalamudPlugin
         Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
         NearbyPlayers = new NearbyPlayers(ClientState, ObjectTable, Framework, Configuration);
-        ChatEnricher = new ChatEnricher(ChatGui, NearbyPlayers, Configuration);
+        ChatEnricher = new ChatEnricher(ChatGui, NearbyPlayers, Configuration, PluginLog);
 
-        MainWindow = new MainWindow(this, NearbyPlayers);
-        ConfigWindow = new ConfigWindow(this);
+        MainWindow = new MainWindow(this, NearbyPlayers)
+        {
+            TitleBarButtons = [new()
+            {
+                Icon = FontAwesomeIcon.Cog,
+                Click = (_) => ToggleConfigUI()
+            }]
+        };
+        ConfigWindow = new ConfigWindow(this)
+        {
+            TitleBarButtons = [new()
+            {
+                Icon = FontAwesomeIcon.ListAlt,
+                Click = (_) => ToggleMainUI()
+            }]
+        };
 
         WindowSystem.AddWindow(MainWindow);
         WindowSystem.AddWindow(ConfigWindow);
@@ -55,9 +71,7 @@ public sealed class Plugin : IDalamudPlugin
     {
         NearbyPlayers.Dispose();
         ChatEnricher.Dispose();
-
         WindowSystem.RemoveAllWindows();
-        ConfigWindow.Dispose();
         CommandManager.RemoveHandler(CommandName);
     }
 
