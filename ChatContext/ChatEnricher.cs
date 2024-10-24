@@ -68,9 +68,9 @@ public class ChatEnricher : IDisposable
         // Reverse to ignore prefixes (party number, etc.)
         foreach (var payload in sender.Payloads.Reverse<Payload>())
         {
-            if (payload is TextPayload rawPayload)
+            if (payload is TextPayload textPayload)
             {
-                return rawPayload.Text!;
+                return textPayload.Text!;
             }
         }
 
