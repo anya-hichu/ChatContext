@@ -11,7 +11,7 @@ public class ConfigWindow : Window
 {
     private Configuration Configuration { get; init; }
 
-    public ConfigWindow(Plugin plugin) : base("Chat Context Config##configWindow")
+    public ConfigWindow(Plugin plugin) : base("Chat Context - Config##configWindow")
     {
         SizeConstraints = new WindowSizeConstraints
         {

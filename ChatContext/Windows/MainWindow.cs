@@ -24,7 +24,7 @@ public class MainWindow : Window
     private Plugin Plugin { get; init; }
     private NearbyPlayers NearbyPlayers { get; init; }
 
-    public MainWindow(Plugin plugin, NearbyPlayers nearbyPlayers) : base("Chat Context Nearby Players##mainWindow")
+    public MainWindow(Plugin plugin, NearbyPlayers nearbyPlayers) : base("Chat Context - Nearby Players##mainWindow")
     {
         SizeConstraints = new WindowSizeConstraints
         {
