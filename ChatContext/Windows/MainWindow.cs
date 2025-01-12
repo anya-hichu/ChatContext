@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
+using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
 
@@ -26,10 +26,10 @@ public class MainWindow : Window
 
     public MainWindow(Plugin plugin, NearbyPlayers nearbyPlayers) : base("Chat Context - Nearby Players##mainWindow")
     {
-        SizeConstraints = new WindowSizeConstraints
+        SizeConstraints = new()
         {
-            MinimumSize = new Vector2(300, 180),
-            MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
+            MinimumSize = new(300, 180),
+            MaximumSize = new(float.MaxValue, float.MaxValue)
         };
 
         Plugin = plugin;
@@ -40,7 +40,7 @@ public class MainWindow : Window
     {
         if (Plugin.Configuration.Enabled)
         {
-            if (ImGui.BeginTable("nearbyPlayersTable", 2, ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Sortable, new Vector2(ImGui.GetWindowWidth(), ImGui.GetWindowHeight() - ImGui.GetTextLineHeight() * 3)))
+            using (ImRaii.Table("nearbyPlayersTable", 2, ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Sortable, new(ImGui.GetWindowWidth(), ImGui.GetWindowHeight() - ImGui.GetTextLineHeight() * 3)))
             {
                 ImGui.TableSetupColumn("Name", ImGuiTableColumnFlags.DefaultSort | ImGuiTableColumnFlags.PreferSortAscending);
                 ImGui.TableSetupColumn("Target name");
@@ -58,7 +58,6 @@ public class MainWindow : Window
                         ImGui.Text(entry.Value);
                     }    
                 }
-                ImGui.EndTable();
             }
         }
         else

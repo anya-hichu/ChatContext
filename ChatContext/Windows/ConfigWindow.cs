@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
-using System.Numerics;
 using Dalamud.Game.Text;
+using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
 
@@ -13,10 +13,10 @@ public class ConfigWindow : Window
 
     public ConfigWindow(Plugin plugin) : base("Chat Context - Config##configWindow")
     {
-        SizeConstraints = new WindowSizeConstraints
+        SizeConstraints = new()
         {
-            MinimumSize = new Vector2(300, 380),
-            MaximumSize = new Vector2(float.MaxValue, float.MaxValue)
+            MinimumSize = new(300, 380),
+            MaximumSize = new(float.MaxValue, float.MaxValue)
         };
 
         Configuration = plugin.Configuration;
@@ -35,7 +35,7 @@ public class ConfigWindow : Window
         {
             // Types
             var types = Configuration.Types.ToHashSet();
-            if (ImGui.BeginChild("channel", new Vector2(ImGui.GetWindowWidth(), 180)))
+            using (ImRaii.Child("channel", new(ImGui.GetWindowWidth(), 180)))
             {
                 foreach (var enumName in Enum.GetNames(typeof(XivChatType)))
                 {
@@ -43,7 +43,8 @@ public class ConfigWindow : Window
                     {
                         var enumValue = (XivChatType)Enum.Parse(typeof(XivChatType), enumName);
                         var value = types.Contains(enumValue);
-                        if (ImGui.Checkbox(enumName, ref value))
+                        ImGui.Checkbox(enumName, ref value);
+                        if (ImGui.IsItemClicked())
                         {
                             if (value)
                             {
@@ -58,7 +59,6 @@ public class ConfigWindow : Window
                         }
                     }
                 }
-                ImGui.EndChild();
             }
         }
 
