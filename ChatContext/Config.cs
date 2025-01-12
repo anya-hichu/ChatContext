@@ -6,19 +6,21 @@ using System.Collections.Generic;
 namespace ChatContext;
 
 [Serializable]
-public class Configuration : IPluginConfiguration
+public class Config : IPluginConfiguration
 {
+    public static readonly HashSet<XivChatType> DEFAULT_TYPES = [
+        XivChatType.Alliance,
+        XivChatType.Yell,
+        XivChatType.Party,
+        XivChatType.Say,
+        XivChatType.Shout
+    ];
+
     public int Version { get; set; } = 0;
 
     public bool Enabled { get; set; } = true;
 
-    public HashSet<XivChatType> Types { get; set; } = [
-        XivChatType.Alliance, 
-        XivChatType.Yell, 
-        XivChatType.Party, 
-        XivChatType.Say, 
-        XivChatType.Shout
-    ];
+    public HashSet<XivChatType> Types { get; set; } = [];
 
     public string Format { get; set; } = "[ {0}]";
 
@@ -37,7 +39,6 @@ public class Configuration : IPluginConfiguration
             return false;
         }
     }
-
 
     public void Save()
     {

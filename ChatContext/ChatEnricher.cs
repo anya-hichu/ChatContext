@@ -11,14 +11,14 @@ public class ChatEnricher : IDisposable
 {
     private IChatGui ChatGui { get; init; }
     private NearbyPlayers NearbyPlayers { get; init; }
-    private Configuration Configuration { get; init; }
+    private Config Config { get; init; }
     private IPluginLog PluginLog { get; init; }
 
-    public ChatEnricher(IChatGui chatGui, NearbyPlayers nearbyPlayers, Configuration configuration, IPluginLog pluginLog)
+    public ChatEnricher(IChatGui chatGui, NearbyPlayers nearbyPlayers, Config config, IPluginLog pluginLog)
     {
         ChatGui = chatGui;
         NearbyPlayers = nearbyPlayers;
-        Configuration = configuration;
+        Config = config;
         PluginLog = pluginLog;
 
         ChatGui.ChatMessage += OnChatMessage;
@@ -31,7 +31,7 @@ public class ChatEnricher : IDisposable
 
     private void OnChatMessage(XivChatType type, int a2, ref SeString sender, ref SeString message, ref bool isHandled)
     {
-        if (Configuration.Enabled && Configuration.FormatValid() && Configuration.Types.Contains(type))
+        if (Config.Enabled && Config.FormatValid() && Config.Types.Contains(type))
         {
             var senderName = GetSenderName(sender);
             PluginLog.Verbose($"Matched Type: {type}, Sender Name: {senderName}");
@@ -41,8 +41,8 @@ public class ChatEnricher : IDisposable
                 PluginLog.Verbose($"Successful Target Lookup: {senderName} => {targetName}");
                 var suffix = new SeStringBuilder()
                     .Append(" ")
-                    .AddUiForeground((ushort)Configuration.Color)
-                    .Append(string.Format(Configuration.Format, targetName))
+                    .AddUiForeground((ushort)Config.Color)
+                    .Append(string.Format(Config.Format, targetName))
                     .AddUiForegroundOff()
                     .Build();
                 message.Append(suffix);

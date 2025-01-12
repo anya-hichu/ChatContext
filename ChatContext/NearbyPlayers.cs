@@ -11,10 +11,10 @@ public class NearbyPlayers : IDisposable
     private IClientState ClientState { get; init; }
     private IObjectTable ObjectTable { get; init; }
     private IFramework Framework { get; init; }
-    private Configuration Configuration { get; init; }
+    private Config Configuration { get; init; }
     public ImmutableDictionary<string, string> TargetNameByName { get; private set; } = ImmutableDictionary.Create<string, string>();
 
-    public NearbyPlayers(IClientState clientState, IObjectTable objectTable, IFramework framework, Configuration configuration)
+    public NearbyPlayers(IClientState clientState, IObjectTable objectTable, IFramework framework, Config configuration)
     {
         ClientState = clientState;
         ObjectTable = objectTable;

@@ -23,7 +23,7 @@ public sealed class Plugin : IDalamudPlugin
 
     public readonly WindowSystem WindowSystem = new("ChatContext");
 
-    public Configuration Configuration { get; init; }
+    public Config Config { get; init; }
     private NearbyPlayers NearbyPlayers { get; init; }
     private ChatEnricher ChatEnricher { get; init; }
     private MainWindow MainWindow { get; init; }
@@ -31,10 +31,12 @@ public sealed class Plugin : IDalamudPlugin
 
     public Plugin()
     {
-        Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+        Config = PluginInterface.GetPluginConfig() as Config ?? new() { 
+            Types = new(Config.DEFAULT_TYPES)
+        };
 
-        NearbyPlayers = new NearbyPlayers(ClientState, ObjectTable, Framework, Configuration);
-        ChatEnricher = new ChatEnricher(ChatGui, NearbyPlayers, Configuration, PluginLog);
+        NearbyPlayers = new NearbyPlayers(ClientState, ObjectTable, Framework, Config);
+        ChatEnricher = new ChatEnricher(ChatGui, NearbyPlayers, Config, PluginLog);
 
         MainWindow = new MainWindow(this, NearbyPlayers)
         {
@@ -89,13 +91,13 @@ public sealed class Plugin : IDalamudPlugin
         }
         else if (subcommand == "enable")
         {
-            Configuration.Enabled = true;
-            Configuration.Save();
+            Config.Enabled = true;
+            Config.Save();
         }
         else if (subcommand == "disable")
         {
-            Configuration.Enabled = false;
-            Configuration.Save();
+            Config.Enabled = false;
+            Config.Save();
         }
         else
         {

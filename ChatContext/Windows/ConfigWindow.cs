@@ -9,7 +9,7 @@ namespace ChatContext.Windows;
 
 public class ConfigWindow : Window
 {
-    private Configuration Configuration { get; init; }
+    private Config Config { get; init; }
 
     public ConfigWindow(Plugin plugin) : base("Chat Context - Config##configWindow")
     {
@@ -19,22 +19,22 @@ public class ConfigWindow : Window
             MaximumSize = new(float.MaxValue, float.MaxValue)
         };
 
-        Configuration = plugin.Configuration;
+        Config = plugin.Config;
     }
 
     public override void Draw()
     {
-        var enabled = Configuration.Enabled;
+        var enabled = Config.Enabled;
         if (ImGui.Checkbox("Enabled", ref enabled))
         {
-            Configuration.Enabled = enabled;
-            Configuration.Save();
+            Config.Enabled = enabled;
+            Config.Save();
         }
 
         if (ImGui.CollapsingHeader("Channels", ImGuiTreeNodeFlags.DefaultOpen))
         {
             // Types
-            var types = Configuration.Types.ToHashSet();
+            var types = Config.Types.ToHashSet();
             using (ImRaii.Child("channel", new(ImGui.GetWindowWidth(), 180)))
             {
                 foreach (var enumName in Enum.GetNames(typeof(XivChatType)))
@@ -43,8 +43,7 @@ public class ConfigWindow : Window
                     {
                         var enumValue = (XivChatType)Enum.Parse(typeof(XivChatType), enumName);
                         var value = types.Contains(enumValue);
-                        ImGui.Checkbox(enumName, ref value);
-                        if (ImGui.IsItemClicked())
+                        if (ImGui.Checkbox(enumName, ref value))
                         {
                             if (value)
                             {
@@ -54,8 +53,8 @@ public class ConfigWindow : Window
                             {
                                 types.Remove(enumValue);
                             }
-                            Configuration.Types = types;
-                            Configuration.Save();
+                            Config.Types = types;
+                            Config.Save();
                         }
                     }
                 }
@@ -65,27 +64,27 @@ public class ConfigWindow : Window
         if (ImGui.CollapsingHeader("Chat info", ImGuiTreeNodeFlags.DefaultOpen))
         {
             // Format
-            var format = Configuration.Format;
+            var format = Config.Format;
             if (ImGui.InputTextWithHint("Format", "Target name placeholder is {0}", ref format, 255))
             {
-                Configuration.Format = format;
-                Configuration.Save();
+                Config.Format = format;
+                Config.Save();
             }
 
             ImGui.Text("Preview: ");
             ImGui.SameLine();
-            ImGui.Text(Configuration.FormatValid()? string.Format(format, "Random Name") : "Invalid format");
+            ImGui.Text(Config.FormatValid()? string.Format(format, "Random Name") : "Invalid format");
 
             // Colors
-            var colorName = Enum.GetName(typeof(UIColor), Configuration.Color)!;
+            var colorName = Enum.GetName(typeof(UIColor), Config.Color)!;
             var colorNames = Enum.GetNames(typeof(UIColor)).ToList();
 
             var index = colorNames.IndexOf(colorName);
             if (ImGui.Combo("Color", ref index, colorNames.ToArray(), colorNames.Count))
             {
                 var enumName = colorNames[index];
-                Configuration.Color = (UIColor)Enum.Parse(typeof(UIColor), enumName);
-                Configuration.Save();
+                Config.Color = (UIColor)Enum.Parse(typeof(UIColor), enumName);
+                Config.Save();
             }
         }
     }

@@ -38,7 +38,7 @@ public class MainWindow : Window
 
     public override void Draw()
     {
-        if (Plugin.Configuration.Enabled)
+        if (Plugin.Config.Enabled)
         {
             using (ImRaii.Table("nearbyPlayersTable", 2, ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Sortable, new(ImGui.GetWindowWidth(), ImGui.GetWindowHeight() - ImGui.GetTextLineHeight() * 3)))
             {
