@@ -14,9 +14,7 @@ public class MainWindow : Window
 
         public int Compare(KeyValuePair<string, string> lhs, KeyValuePair<string, string> rhs)
         {
-            var left = Specs.ColumnIndex == 0 ? lhs.Key : lhs.Value;
-            var right = Specs.ColumnIndex == 0 ? rhs.Key : rhs.Value;
-
+            var (left, right) = Specs.ColumnIndex == 0 ? (lhs.Key, rhs.Key) : (lhs.Value, rhs.Value);
             return Specs.SortDirection == ImGuiSortDirection.Ascending ? left.CompareTo(right) : right.CompareTo(left);
         }
     }
@@ -40,23 +38,27 @@ public class MainWindow : Window
     {
         if (Plugin.Config.Enabled)
         {
-            using (ImRaii.Table("nearbyPlayersTable", 2, ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Sortable, new(ImGui.GetWindowWidth(), ImGui.GetWindowHeight() - ImGui.GetTextLineHeight() * 3)))
+            using (var table = ImRaii.Table("nearbyPlayersTable", 2, ImGuiTableFlags.RowBg | ImGuiTableFlags.ScrollY | ImGuiTableFlags.Sortable, new(ImGui.GetWindowWidth(), ImGui.GetWindowHeight() - ImGui.GetTextLineHeight() * 3)))
             {
-                ImGui.TableSetupColumn("Name", ImGuiTableColumnFlags.DefaultSort | ImGuiTableColumnFlags.PreferSortAscending);
-                ImGui.TableSetupColumn("Target name");
-                ImGui.TableHeadersRow();
+                if (table)
+                {
+                    ImGui.TableSetupColumn("Name", ImGuiTableColumnFlags.DefaultSort | ImGuiTableColumnFlags.PreferSortAscending);
+                    ImGui.TableSetupColumn("Target name");
+                    ImGui.TableHeadersRow();
 
-                var specs = ImGui.TableGetSortSpecs().Specs;
-                foreach (var entry in NearbyPlayers.TargetNameByName.ToList().Order(new TableComparer(specs))) {
-                    if (ImGui.TableNextColumn())
+                    var specs = ImGui.TableGetSortSpecs().Specs;
+                    foreach (var entry in NearbyPlayers.TargetNameByName.ToList().Order(new TableComparer(specs)))
                     {
-                        ImGui.Text(entry.Key);
+                        if (ImGui.TableNextColumn())
+                        {
+                            ImGui.Text(entry.Key);
+                        }
+
+                        if (ImGui.TableNextColumn())
+                        {
+                            ImGui.Text(entry.Value);
+                        }
                     }
-
-                    if (ImGui.TableNextColumn())
-                    {
-                        ImGui.Text(entry.Value);
-                    }    
                 }
             }
         }
