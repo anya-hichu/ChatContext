@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Dalamud.NET.SDK/12.0.0">
+<Project Sdk="Dalamud.NET.SDK/12.0.2">
   <PropertyGroup>
     <Description>Dalamud plugin to add sender target to chat messages.</Description>
     <PackageProjectUrl>https://github.com/anya-hichu/ChatContext</PackageProjectUrl>
