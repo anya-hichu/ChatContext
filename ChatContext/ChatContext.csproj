@@ -5,6 +5,5 @@
     <PackageProjectUrl>https://github.com/anya-hichu/ChatContext</PackageProjectUrl>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <IsPackable>false</IsPackable>
-    <TargetFramework>net9.0-windows7.0</TargetFramework>
   </PropertyGroup>
 </Project>
