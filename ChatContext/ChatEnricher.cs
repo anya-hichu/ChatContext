@@ -1,3 +1,4 @@
+using Dalamud.Game.Chat;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
@@ -29,12 +30,12 @@ public class ChatEnricher : IDisposable
         ChatGui.ChatMessage -= OnChatMessage;
     }
 
-    private void OnChatMessage(XivChatType type, int a2, ref SeString sender, ref SeString message, ref bool isHandled)
+    private void OnChatMessage(IHandleableChatMessage message)
     {
-        if (Config.Enabled && Config.FormatValid() && Config.Types.Contains(type))
+        if (Config.Enabled && Config.FormatValid() && Config.Types.Contains(message.LogKind))
         {
-            var senderName = GetSenderName(sender);
-            PluginLog.Verbose($"Matched Type: {type}, Sender Name: {senderName}");
+            var senderName = GetSenderName(message.Sender);
+            PluginLog.Verbose($"Matched Type: {message.LogKind}, Sender Name: {senderName}");
             var targetName = NearbyPlayers.GetTargetName(senderName);
             if (targetName != null)
             {
@@ -45,7 +46,7 @@ public class ChatEnricher : IDisposable
                     .Append(string.Format(Config.Format, targetName))
                     .AddUiForegroundOff()
                     .Build();
-                message.Append(suffix);
+                message.Message.Append(suffix);
             }
             else
             {
